@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Asynchronous JavaScript Programming[1] - CaeChao&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionWhat is asynchronous programming?Well, imagine you are sitting in front of your computer screen, putting your hands on your beloved keyboard and doing your coding and thinking, and suddenl">
+<meta name="keywords" content="Programming,IT,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Asynchronous JavaScript Programming[1]">
+<meta property="og:url" content="https://CaeChao.github.io/2019/05/17/asynchronous-JavaScript-programming[1]/index.html">
+<meta property="og:site_name" content="CaeChao&#39;s Blog">
+<meta property="og:description" content="IntroductionWhat is asynchronous programming?Well, imagine you are sitting in front of your computer screen, putting your hands on your beloved keyboard and doing your coding and thinking, and suddenl">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://caechao.github.io/images/js-concurrency-model.png">
+<meta property="og:updated_time" content="2019-05-22T08:51:21.991Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Asynchronous JavaScript Programming[1]">
+<meta name="twitter:description" content="IntroductionWhat is asynchronous programming?Well, imagine you are sitting in front of your computer screen, putting your hands on your beloved keyboard and doing your coding and thinking, and suddenl">
+<meta name="twitter:image" content="https://caechao.github.io/images/js-concurrency-model.png">
+  
+    <link rel="alternative" href="/atom.xml" title="CaeChao&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.jpg">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-120206751-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    
+
+
+<header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo" href="/"></a>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/CaeChao" target="_blank"></a>
+        <a id="nav-twitter-link" class="nav-icon" href="" target="_blank"></a>
+        <a id="nav-email-link" class="nav-icon" href="" target="_blank"></a>
+        
+          <a id="nav-rss-link" class="nav-icon" href="atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://CaeChao.github.io"></form>
+      </div>
+    </div>
+    <div id="quotes" class="quotes">
+      <i class="fa fa-quote-left"></i><span id="quote"></span>
+      <span id="author"></span>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">HOME</a>
+      
+        <a class="main-nav-link" href="/archives">ARCHIVES</a>
+      
+        <a class="main-nav-link" href="/tags">CATEGORIES</a>
+      
+        <a class="main-nav-link" href="/projects">PROJECTS</a>
+      
+        <a class="main-nav-link" href="/about">ABOUT</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <br>
+    <section id="main" class="outer"><article id="post-asynchronous-JavaScript-programming[1]" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Asynchronous JavaScript Programming[1]
+    </h1>
+      <p class="article-detail-date-index"><small>&nbsp; 2019-05-17</small></p>
+  
+
+
+        <!-- <div class=page-title></div> -->
+        <br>
+      </header>
+    
+    <div class="article-meta">
+      <!--<a href="/2019/05/17/asynchronous-JavaScript-programming[1]/" class="article-date">
+  <time datetime="2019-05-16T16:00:00.000Z" itemprop="datePublished">2019-05-17</time>
+</a>-->
+      <!-- 
+-->
+      <!--
+      
+      -->
+    </div>
+    
+      <div class="article-toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-does-it-work-in-JavaScript"><span class="toc-text">How does it work in JavaScript?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack"><span class="toc-text">Stack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Another-Worker"><span class="toc-text">Another Worker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Message-Queue"><span class="toc-text">Message Queue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Loop"><span class="toc-text">Event Loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-text">End</span></a></li></ol>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>What is asynchronous programming?<br>Well, imagine you are sitting in front of your computer screen, putting your hands on your beloved keyboard and doing your coding and thinking, and suddenly you realize that there is a piece of necessary information you need to ask your friend to finish your work, so you grab your phone nearby and send an asking message to your friend, and this might take him some time to respond.</p>
+<p>Now there are different ways for you to proceed:</p>
+<ul>
+<li>You stay on your phone and wait for his respond (<strong>Synchronous</strong>)</li>
+<li>You tell your friend to send back that important information once he has that information. Meanwhile you can continue what tasks are you focusing on. (<strong>Asynchronous</strong>)</li>
+</ul>
+<p>The same principle applies to Computer:<br>The central part of the computer is the processor, which just like your brain, but it works all the time.<br>The programs are nothing but tasks that will keep the processor busy. But many programs not just interact with processors, they may also communicate with other computers over a network. (like sending messages to your friends)<br>So when a single program need to make progress while it is waiting for some data back from a network request, asynchronous behavior happens.</p>
+<h2 id="How-does-it-work-in-JavaScript"><a href="#How-does-it-work-in-JavaScript" class="headerlink" title="How does it work in JavaScript?"></a>How does it work in JavaScript?</h2><p>There are some basic components in JavaScript runtime to construct the JavaScript concurrency model.</p>
+<h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><ul>
+<li>Stack is the temporary memory where variables store, and the memory is cleared<br>automatically after function finished.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">taskA();</span><br><span class="line">taskB();</span><br><span class="line">taskC();</span><br><span class="line"></span><br><span class="line"># The single thread process:</span><br><span class="line">Task A --&gt; Task B --&gt; Task C</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>In JavaScript, the code inside taskA()(and taskB(), taskC()) is atomic, which means that once taskA() starts running, it cannot be interrupted and will finish before any code in taskB() can run.</p>
+<h2 id="Another-Worker"><a href="#Another-Worker" class="headerlink" title="Another Worker"></a>Another Worker</h2><p>JavaScript is generally a <strong>single-threaded synchronous</strong> language, so how can JavaScript performs <strong>asynchronous actions</strong>? Actually the asynchronous behavior is not part of the JavaScript language, rather they are built on host Environment like Browser or Nodejs, act like another worker or friend.<br>If you replace asynchronous actions with synchronous actions, the webpage will be unresponsive while the script is running, the user will not be able to do anything, because the UI is locked by that time delay task.<br>Here is how they work together:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">taskA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a'</span>);</span><br><span class="line">    setTimeout(taskB, <span class="number">500</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">taskB</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'b'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">taskC</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'c'</span>);</span><br><span class="line">&#125;</span><br><span class="line">taskA();</span><br><span class="line">taskC(); </span><br><span class="line"></span><br><span class="line"># JS Main Thread: Task A --&gt; Task C</span><br><span class="line"># Worker Thread: Task B</span><br><span class="line"></span><br><span class="line"># output: a c b</span><br></pre></td></tr></table></figure>
+<p>Have you noticed the taskB inside setTimeout function above? That is an asynchronous <strong>callback</strong> function which is a function that performs a slow action. Just like a friend sends you a message back.</p>
+<h2 id="Message-Queue"><a href="#Message-Queue" class="headerlink" title="Message Queue"></a>Message Queue</h2><p>JavaScript runtime uses a message queue to receive incoming events, which is a list of messages to be processed. Queue behaves as FIFO(First in First out)</p>
+<h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p>Event loop always waits for a message to arrive, and will pop message(event) from the message queue to stack after JS main thread finishes the tasks.<br>Here is how event loop and message queue work together:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// event loop is an array acts as a queue</span></span><br><span class="line"><span class="keyword">var</span> eventLoop = []; <span class="comment">//message queue</span></span><br><span class="line"><span class="keyword">var</span> event;</span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (eventloop.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// get the next event</span></span><br><span class="line">    event = eventloop.shift();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      event();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        reportError(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Remember the setTimeout function above? Actually that function doesn’t put that callback function taskB on the event loop queue. What it really does is set up a timer; when the timer expires, the host environment will place your callback into message queue. But if you have already had a lot of items inside your event loop at that moments, say like 20…then your new callback function must wait. That’s why sometimes your setTimeout timers may not triggers your function punctually.</p>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>Here is a picture demonstrating how they work together:<br><img src="/images/js-concurrency-model.png" alt="Js-concurrency-model"><br>So why asynchronous programming?<br>Most of time JavaScript is synchronous, blocking, single-threaded, in which only one operation can be in progress at a time.<br>But if we want to load some data from server side database like performing a Ajax querying and displaying the result, then it is<br>better to push this off main JS thread and perform this task asynchronously.<br>So this is my introduction to asynchronous JavaScript Programming, I’ll talk about some common problems involved in this<br>model, and the evolution of asynchronous JavaSript from <strong>Callback</strong> to <strong>Promise</strong> to <strong>async await</strong> in the next article.</p>
+
+      
+    
+      <br>
+      
+<div id="post-bottom-section">
+
+<span style="font-size: 1.0em; padding:0em 1em 0.5em 1em; margin: 0 auto;">
+
+<a data-url="https://CaeChao.github.io/2019/05/17/asynchronous-JavaScript-programming[1]/" data-id="ck0mbmtyd0005yfoileweum27" class="article-share-link">Share</a>
+<br>
+
+</span>
+</div>
+
+
+
+    
+    </div>
+    
+      <footer class="article-footer">
+        <!-- <div class="well" style="width:100px; height:30px;"></div> -->
+        
+
+        <!--
+        <div style="width:100px; height:30px;"></div>
+        -->
+        
+  <div class="article-tag">
+    <a class="article-tag-link" href="/tags/IT/">IT</a><span></span><a class="article-tag-link" href="/tags/JavaScript/">JavaScript</a><span></span><a class="article-tag-link" href="/tags/Programming/">Programming</a>
+  </div>
+
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/24/asynchronous-JavaScript-programming[2]/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Asynchronous JavaScript Programming[2]
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/03/object-oriented-programming/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Object Oriented Programming&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+    <div class="license">
+        <br>
+        <a target="_blank" title="Creative Commons Attribution 4.0 international License" href="https://creativecommons.org/licenses/by-nc/4.0/">Share License</a>
+    </div>
+        
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2019 CaeChao&nbsp;
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        </div>
+    </div>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/quotesMachine.js"></script>
+
+  </div>
+</body>
+</html>

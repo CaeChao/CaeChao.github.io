@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Asynchronous JavaScript Programming [2] - ORDER CHAOS</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="CaeChao" /><meta name="description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from async callback to Promise, async await
+Asynchronous Callback The earliest solution to asynchronous programming might be asynchronous callback(like setTimeout) which is a function that&amp;rsquo;s treated as a parameter when calling another higher order function which will start to execute in the background." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.111.3 with theme even" />
+
+
+<link rel="canonical" href="https://caechao.github.io/post/asynchronous-javascript-programming2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+<link href="/sass/main.min.578bb701529bf4d4789c404ed5ab321b2498ceb990c9d697d9cd9ddbc131c3a8.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Asynchronous JavaScript Programming [2]" />
+<meta property="og:description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from async callback to Promise, async await
+Asynchronous Callback The earliest solution to asynchronous programming might be asynchronous callback(like setTimeout) which is a function that&rsquo;s treated as a parameter when calling another higher order function which will start to execute in the background." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caechao.github.io/post/asynchronous-javascript-programming2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-05-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-05-24T00:00:00+00:00" />
+<meta itemprop="name" content="Asynchronous JavaScript Programming [2]">
+<meta itemprop="description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from async callback to Promise, async await
+Asynchronous Callback The earliest solution to asynchronous programming might be asynchronous callback(like setTimeout) which is a function that&rsquo;s treated as a parameter when calling another higher order function which will start to execute in the background."><meta itemprop="datePublished" content="2019-05-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-05-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1339">
+<meta itemprop="keywords" content="Programming,Programming.JavaScript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Asynchronous JavaScript Programming [2]"/>
+<meta name="twitter:description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from async callback to Promise, async await
+Asynchronous Callback The earliest solution to asynchronous programming might be asynchronous callback(like setTimeout) which is a function that&rsquo;s treated as a parameter when calling another higher order function which will start to execute in the background."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <p class="logo" itemprop="headline">
+          ORDER
+        
+        <span>
+        
+          CHAOS
+        
+        </span></p>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">HOME</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">ARCHIVES</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">TAGS</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">PROJECTS</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">ABOUT</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div id="header-outer" class="header-outer">
+ <div id="header-inner" class="header-inner">
+    <div class="logo-wrapper">
+      <p class="logo" itemprop="headline">
+            ORDER
+          
+          <span>
+          
+            CHAOS
+          
+          </span></p>
+    </div>
+    
+    
+
+
+    <nav class="social-links">
+          <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+          <a href="https://caechao.github.io" class="iconfont icon-twitter" title="twitter"></a>
+          <a href="https://github.com/CaeChao" class="iconfont icon-github" title="github"></a>
+      <a href="https://caechao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+        <a id="menu-search-btn" class="iconfont icon-search" title="search"></a>
+    </nav>
+ </div>
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+       <input type="search" name="q" class="search-form-input" placeholder="Search">
+       <button type="submit" class="iconfont search-form-submit">&#xe60e;</button>
+       <input type="hidden" name="sitesearch" value="https://caechao.github.io/">
+     </form>
+   </div>
+   <div id="quotes" class="quotes">
+     <i class="fa fa-quote-left"></i><span id="quote"></span>
+     <span id="author"></span>
+   </div>
+
+   <nav class="site-navbar">
+     <ul id="menu" class="menu">
+       <li class="menu-item">
+           <a class="menu-item-link" href="/">HOME</a>
+         </li><li class="menu-item">
+           <a class="menu-item-link" href="/post/">ARCHIVES</a>
+         </li><li class="menu-item">
+           <a class="menu-item-link" href="/tags/">TAGS</a>
+         </li><li class="menu-item">
+           <a class="menu-item-link" href="/projects/">PROJECTS</a>
+         </li><li class="menu-item">
+           <a class="menu-item-link" href="/about/">ABOUT</a>
+         </li>
+     </ul>
+   </nav>
+</iv>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Asynchronous JavaScript Programming [2]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-24 </span>
+        
+      <span class="post-tags">
+          <a href="/tags/programming/">Programming</a>
+          <a href="/tags/programming.javascript/">Programming.JavaScript</a>
+          </sapn>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#asynchronous-callback">Asynchronous Callback</a>
+          <ul>
+            <li><a href="#callback-hell">Callback hell</a></li>
+          </ul>
+        </li>
+        <li><a href="#promise">Promise</a></li>
+        <li><a href="#generator">Generator</a></li>
+        <li><a href="#asyncawait">Async/Await</a></li>
+        <li><a href="#single-threaded-brain">Single threaded Brain</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- toc -->
+<p>In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from <strong>async callback</strong> to <strong>Promise</strong>, <strong>async await</strong></p>
+<h2 id="asynchronous-callback">Asynchronous Callback</h2>
+<p>The earliest solution to asynchronous programming might be <strong>asynchronous callback</strong>(like setTimeout) which is a function that&rsquo;s treated as a parameter when calling another <strong>higher order function</strong> which will start to execute in the background. When that higher order function finishes running, it calls the callback function to let you know the job is done. But sometimes it has some problems.</p>
+<h3 id="callback-hell">Callback hell</h3>
+<p>When you have a series of tasks where each step depends on the results of the previous step. If it is synchronous code, then it will be pretty straightforward:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">tokenize</span><span class="p">(</span><span class="nx">text</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">parseTree</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">tokens</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">optimizedTree</span> <span class="o">=</span> <span class="nx">optimize</span><span class="p">(</span><span class="nx">parse</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">output</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">optimizedTree</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">output</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>But if you try to do these tasks in asynchronous code, which happens very often in Front-end with lots of Ajax requests and end-up looking like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">tokenize</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="p">(</span><span class="nx">tokens</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">parse</span><span class="p">(</span><span class="nx">tokens</span><span class="p">,</span> <span class="p">(</span><span class="nx">parseTree</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">optimize</span><span class="p">(</span><span class="nx">parseTree</span><span class="p">,</span> <span class="p">(</span><span class="nx">optimizedTree</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">evaluate</span><span class="p">(</span><span class="nx">optimizedTree</span><span class="p">,</span> <span class="p">(</span><span class="nx">output</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It&rsquo;s called <strong>callback hell</strong>, this may drive most people&rsquo;s brain crazy just by a quick glimpse. Having a project end up with hundreds of similar code blocks will make it extremely hard to maintain the code even for the person who wrote it, and the <strong>DRY</strong> principle apparently has no value here as well.</p>
+<p>That&rsquo;s where <strong>Promise</strong> come in.</p>
+<h2 id="promise">Promise</h2>
+<p><strong>Promise</strong> is a new modern style of solution to async programming. Simply put, a Promise is a <strong>container</strong> which stores an event(an asynchronous action) that may complete at some point in the future and produce a value, and that future value indicate a <strong>success</strong> or <strong>failure</strong>. You can imagine you order some food in a restaurant, and you&rsquo;ll either get the food eventually(success), or you&rsquo;ll get the bad news of food shortage(failure).</p>
+<p>When you initiate a <strong>Promise</strong>, you can use <strong>.then</strong> to pass two different callback handlers to <strong>fulfillment</strong>(success) and <strong>rejection</strong>(failure).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// success
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// failure
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>or you can use <code>Promise.prototype.catch(onRejected)</code> to deals with rejected error cases, which actually behaves the same as calling <code>Promise.prototype.then(undefined, onRejected)</code></p>
+<p>Here are some features of <strong>Promise</strong></p>
+<ul>
+<li>A Promise may be in one of 3 possible states: <strong>fulfilled</strong>, <strong>rejected</strong>, or <strong>pending</strong>,</li>
+<li>Promise doesn&rsquo;t expose states outside, instead, you&rsquo;re expected to treat the promise as a black box</li>
+<li>Because <strong>.then()</strong> will always return a new <strong>Promise</strong>, you can chain multiple async operations together using multiple <strong>.then()</strong> operations, passing the result of one into the next one as an input.</li>
+<li>Once a <strong>Promise</strong> is <strong>resolved</strong>, it becomes an immutable value, and it will trigger the callback function binding with <strong>.then()</strong>. Therefore, it&rsquo;s safe to pass that result because of the fact that it cannot be modified.</li>
+<li>It will start doing whatever task you give it as soon as the promise constructor is initiated immediately.</li>
+</ul>
+<p>Why promise? As mentioned previously, if you have a series of asynchronous tasks where each step depends on the results of previous step, which often easily ends up with <strong>callback hell</strong>. If we use <strong>Promise</strong>, then we can synchronizing these asynchronous tasks, rather than writing nested callback functions. Even though this method does not remove the use of callbacks, it makes the chaining functions straightforward, making it much easier to read and write.</p>
+<p>Another good reason to use <strong>Promise</strong> is that <strong>Promise</strong> can be see as a <strong>trustable</strong> and <strong>repeatable mechanism</strong> for encapsulating and composing <strong>future values</strong>, meanwhile, you don&rsquo;t need to worry about the time aspect of it.</p>
+<p>If we refactor our callback hell codes above by using <strong>Promise</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">text</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">tokenize</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">tokens</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">tokens</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">parseTree</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">optimize</span><span class="p">(</span><span class="nx">parseTree</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">optimizedTree</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">optimizedTree</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">output</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Doesn&rsquo;t it look much better to you as an sequence?</p>
+<h2 id="generator">Generator</h2>
+<p>However, we still have some drawbacks to use callbacks:</p>
+<ul>
+<li>Async Callback doesn’t fit how our brain plans out steps of a task.</li>
+<li>Callback is not trustable or composable because of inversion of control.</li>
+</ul>
+<p>If we want to express async flow in a sequential, synchronous-looking style, we need some other ways. That&rsquo; where <strong>Generator</strong> comes in.<br>
+<strong>Generator</strong> functions are JavaScript functions that may yield multiple values before finally returning.<br>
+But we won&rsquo;t discuss much about <strong>Generator</strong> here, because we have a more modern solution: Async/Await.</p>
+<h2 id="asyncawait">Async/Await</h2>
+<p><strong>Async/Await</strong> is basically a <strong>Syntactic Sugar</strong> for <strong>Generator</strong> function<br>
+If we refactor our html processing codes above to Async/Await, then it turns out like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">asyncProcessor</span> <span class="o">=</span> <span class="kr">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">tokenize</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">parseTree</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">tokens</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">optimzedTree</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">optimize</span><span class="p">(</span><span class="nx">parseTree</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">optimzedTree</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can see <strong>async function</strong> as a <strong>Promise</strong> with multiple asynchronous operations, and see <strong>await</strong> as a syntactic<br>
+sugar for <strong>.then()</strong>. In fact, you can also chain <strong>.then()</strong> right from the end of <strong>async</strong> function:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="nx">asyncProcessor</span><span class="p">(</span><span class="s1">&#39;./filename.html&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And sometimes it&rsquo;s also a good practice to put a data process function into the Promise.then after it resolved and you can get the data from the asynchronous data query, otherwise, sometimes the web page will render the UI components or execute other UI actions before getting the real data that should be rendered because of the non-block event driven programming model in JavaScript.</p>
+<p>So now you can write async codes as if it were synchronous, but without blocking the main thread.</p>
+<h2 id="single-threaded-brain">Single threaded Brain</h2>
+<p>So why the async codes evolve this way? Why we have figured out all kinds of solutions to write asynchronous codes, but in the end it seems that we come back to the original style like a roundabout.</p>
+<p>I think a good answer to this is that:<br>
+Humans are not as good at <strong>multitasking</strong> as we think we are. That&rsquo;s may just not really how our brains appear to be set up. We&rsquo;d like to plan things in a synchronous order, rather then let the tasks to hang randomly and pop up like async events.</p>
+<p>Yeah, yeah, you may say that &ldquo;I can talk to a friend on the phone and finish my typing simultaneously.&rdquo; At the surface level, it seems like that your brain is functioning parallel. But I think what you’re actually most likely doing is acting as a fast context switcher, switching back and forth to these little chunks of information, and it costs a hell lot of mind resources and energies. Because the information you are processing is pretty <strong>shallow</strong>, and the brain resources are arranged to different tasks <strong>unconsciously</strong>, therefore it&rsquo;s hard for you to think deeply about the logic of your tasks, you are actually fake multitasking.<br>
+Of course, there is nothing wrong to process information subconsciously, these are all vital tasks to our daily life. But if you want to solve a really hard problem, or try to read a book, then maybe it&rsquo;s better to concentrate on the task at hand and avoid interruptions. The harder task you get, more energy and self-control you need to finish your task.<br>
+If you have ever read about the concept about <strong>System 1</strong> and <strong>System 2</strong> which comes from the Book:<strong>Thinking Fast and Slow</strong>, you will get the idea.</p>
+<p>And That&rsquo;s why I think sometimes we should be really careful when we obsess about checking social media and feeds these days, it turns out that we may not get a deep understanding by switching between these shallow information chunks. Even worse, we may lose the ability to focus on reading a good book, and just let these noises occupy our time and grab our attention.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">CaeChao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-05-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+
+<footer class="post-footer">
+
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/sunday-bloody-sunday/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Sunday Bloody Sunday - U2</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/asynchronous-javascript-programming1/">
+            <span class="next-text nav-default">Asynchronous JavaScript Programming [1]</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -  based on
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>CaeChao</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.min.37e575d2c1b8bfd433f19a73145bb756e2c92f1f379afc443e21143bdb671ac9.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120206751-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

@@ -1,5 +1,4 @@
 (function($){
-// random quote machine
 // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,

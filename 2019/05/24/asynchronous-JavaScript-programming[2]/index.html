@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
-  <title>Asynchronous JavaScript Programming[2] - CaeChao&#39;s Blog</title>
+  <title>Asynchronous JavaScript Programming [2] - CaeChao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from">
-<meta name="keywords" content="Programming,IT,JavaScript">
+  <meta name="description" content="Asynchronous Callback Promise Generator Async&#x2F;Await Single threaded Brain    In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Asynchronous JavaScript Programming[2]">
-<meta property="og:url" content="https://CaeChao.github.io/2019/05/24/asynchronous-JavaScript-programming[2]/index.html">
+<meta property="og:title" content="Asynchronous JavaScript Programming [2]">
+<meta property="og:url" content="https://caechao.github.io/2019/05/24/asynchronous-JavaScript-programming[2]/index.html">
 <meta property="og:site_name" content="CaeChao&#39;s Blog">
-<meta property="og:description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-17T14:23:06.011Z">
+<meta property="og:description" content="Asynchronous Callback Promise Generator Async&#x2F;Await Single threaded Brain    In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-05-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-31T16:16:15.639Z">
+<meta property="article:author" content="CaeChao">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Programming.JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Asynchronous JavaScript Programming[2]">
-<meta name="twitter:description" content="In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from">
   
     <link rel="alternative" href="/atom.xml" title="CaeChao&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/favicon.jpg">
   
-  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
   <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
@@ -44,20 +47,18 @@ ga('send', 'pageview');
 <!-- End Google Analytics -->
 
 
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
 <body>
   <div id="container">
-    
-
-
-<header id="header">
+    <header id="header">
   <div id="header-outer" class="outer">
     <div id="header-inner" class="inner">
+      <p class="blog-title" itemprop="headline">ORDER<span>CHAOS</span></p>
       <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
-      <a id="logo" class="logo" href="/"></a>
       <nav id="sub-nav">
-        <a id="nav-github-link" class="nav-icon" href="https://github.com/CaeChao" target="_blank"></a>
+        <a id="nav-github-link" class="nav-icon"
+        href="https://github.com/CaeChao" target="_blank"></a>
         <a id="nav-twitter-link" class="nav-icon" href="" target="_blank"></a>
         <a id="nav-email-link" class="nav-icon" href="" target="_blank"></a>
         
@@ -90,7 +91,7 @@ ga('send', 'pageview');
 </header>
 
     <br>
-    <section id="main" class="outer"><article id="post-asynchronous-JavaScript-programming[2]" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <section id="main" class="outer"><article id="post-asynchronous-JavaScript-programming[2]" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -98,9 +99,9 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      Asynchronous JavaScript Programming[2]
+      Asynchronous JavaScript Programming [2]
     </h1>
-      <p class="article-detail-date-index"><small>&nbsp; 2019-05-24</small></p>
+      <p class=article-detail-date-index><small>&nbsp; 2019-05-24</small></p>
   
 
 
@@ -109,57 +110,93 @@ ga('send', 'pageview');
       </header>
     
     <div class="article-meta">
-      <!--<a href="/2019/05/24/asynchronous-JavaScript-programming[2]/" class="article-date">
+      <!-- <span class="article-date">
   <time datetime="2019-05-23T16:00:00.000Z" itemprop="datePublished">2019-05-24</time>
-</a>-->
+</span>
+-->
       <!-- 
 -->
       <!--
       
       -->
     </div>
+    <!--
     
       <div class="article-toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Asynchronous-Callback"><span class="toc-text">Asynchronous Callback</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Callback-hell"><span class="toc-text">Callback hell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise"><span class="toc-text">Promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generator"><span class="toc-text">Generator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Async-Await"><span class="toc-text">Async/Await</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Single-threaded-Brain"><span class="toc-text">Single threaded Brain</span></a></li></ol>
       </div>
     
+    -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from <strong>async callback</strong> to <strong>Promise</strong>, <strong>async await</strong></p>
-<h2 id="Asynchronous-Callback"><a href="#Asynchronous-Callback" class="headerlink" title="Asynchronous Callback"></a>Asynchronous Callback</h2><p>The earliest solution to asynchronous programming might be <strong>asynchronous callback</strong>(like setTimeout) which is a function that’s treated as a parameter when calling another <strong>higher order function</strong> which will start to execute in the background. When that higher order function finishes running, it calls the callback function to let you know the job is done.<br>But sometimes it has some problems.</p>
-<h3 id="Callback-hell"><a href="#Callback-hell" class="headerlink" title="Callback hell"></a>Callback hell</h3><p>When you have a series of tasks where each step depends on the results of the previous step. If it is synchronous code, then it will be pretty straightforward:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = readFile(fileName),</span><br><span class="line">    tokens = tokenize(text),</span><br><span class="line">    parseTree = parse(tokens),</span><br><span class="line">    optimizedTree = optimize(parse),</span><br><span class="line">    output = evaluate(optimizedTree),</span><br><span class="line"><span class="built_in">console</span>.log(output);</span><br></pre></td></tr></table></figure></p>
-<p>But if you try to do these tasks in asynchronous code, which happens very often in Front-end with lots of Ajax requests and end-up looking like this:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">readFile(fileName, (text) =&gt; &#123;</span><br><span class="line">  tokenize(text, (tokens) =&gt; &#123;</span><br><span class="line">    parse(tokens, (parseTree) =&gt; &#123;</span><br><span class="line">      optimize(parseTree, (optimizedTree) =&gt; &#123;</span><br><span class="line">        evaluate(optimizedTree, (output) =&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(output);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+        <div class="article-toc">
+<!-- toc -->
+<ul>
+<li><a href="#asynchronous-callback">Asynchronous Callback</a></li>
+<li><a href="#promise">Promise</a></li>
+<li><a href="#generator">Generator</a></li>
+<li><a href="#async-await">Async/Await</a></li>
+<li><a href="#single-threaded-brain">Single threaded Brain</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+<p>In the last article, we introduced what is asynchronous programming and the concurrency model in JavaScript runtime. In this article, we will talk about the evolution of asynchronous JavaScript: from <strong>async callback</strong> to <strong>Promise</strong>, <strong>async await</strong></p>
+<h2><a href="#asynchronous-callback" class="header-anchor">★ </a><span id="asynchronous-callback">Asynchronous Callback</span></h2>
+<p>The earliest solution to asynchronous programming might be <strong>asynchronous callback</strong>(like setTimeout) which is a function that’s treated as a parameter when calling another <strong>higher order function</strong> which will start to execute in the background. When that higher order function finishes running, it calls the callback function to let you know the job is done. But sometimes it has some problems.</p>
+<h3><a href="#callback-hell" class="header-anchor">★ </a><span id="callback-hell">Callback hell</span></h3>
+<p>When you have a series of tasks where each step depends on the results of the previous step. If it is synchronous code, then it will be pretty straightforward:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">var</span> text = readFile(fileName),<br>    tokens = tokenize(text),<br>    parseTree = parse(tokens),<br>    optimizedTree = optimize(parse),<br>    output = evaluate(optimizedTree),<br><span class="hljs-built_in">console</span>.log(output);<br></code></pre></td></tr></table></figure>
+<p>But if you try to do these tasks in asynchronous code, which happens very often in Front-end with lots of Ajax requests and end-up looking like this:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs JavaScript">readFile(fileName, <span class="hljs-function">(<span class="hljs-params">text</span>) =&gt;</span> &#123;<br>  tokenize(text, <span class="hljs-function">(<span class="hljs-params">tokens</span>) =&gt;</span> &#123;<br>    parse(tokens, <span class="hljs-function">(<span class="hljs-params">parseTree</span>) =&gt;</span> &#123;<br>      optimize(parseTree, <span class="hljs-function">(<span class="hljs-params">optimizedTree</span>) =&gt;</span> &#123;<br>        evaluate(optimizedTree, <span class="hljs-function">(<span class="hljs-params">output</span>) =&gt;</span> &#123;<br>          <span class="hljs-built_in">console</span>.log(output);<br>        &#125;);<br>      &#125;);<br>    &#125;);<br>  &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
 <p>It’s called <strong>callback hell</strong>, this may drive most people’s brain crazy just by a quick glimpse. Having a project end up with hundreds of similar code blocks will make it extremely hard to maintain the code even for the person who wrote it, and the <strong>DRY</strong> principle apparently has no value here as well.</p>
 <p>That’s where <strong>Promise</strong> come in.</p>
-<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p><strong>Promise</strong> is a new modern style of solution to async programming. Simply put, a Promise is a <strong>container</strong> which stores an event(an asynchronous action) that may complete at some point in the future and produce a value, and that future value indicate a <strong>success</strong> or <strong>failure</strong>. You can imagine you order some food in a restaurant, and you’ll either get the food eventually(success), or you’ll get the bad news of food shortage(failure).</p>
-<p>When you initiate a <strong>Promise</strong>, you can use <strong>.then</strong> to pass two different callback handlers to <strong>fulfillment</strong>(success) and <strong>rejection</strong>(failure).<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2><a href="#promise" class="header-anchor">★ </a><span id="promise">Promise</span></h2>
+<p><strong>Promise</strong> is a new modern style of solution to async programming. Simply put, a Promise is a <strong>container</strong> which stores an event(an asynchronous action) that may complete at some point in the future and produce a value, and that future value indicate a <strong>success</strong> or <strong>failure</strong>. You can imagine you order some food in a restaurant, and you’ll either get the food eventually(success), or you’ll get the bad news of food shortage(failure).</p>
+<p>When you initiate a <strong>Promise</strong>, you can use <strong>.then</strong> to pass two different callback handlers to <strong>fulfillment</strong>(success) and <strong>rejection</strong>(failure).</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs JavaScript">promise.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>&#123;<br>  <span class="hljs-comment">// success</span><br>&#125;, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>&#123;<br>  <span class="hljs-comment">// failure</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>or you can use <code>Promise.prototype.catch(onRejected)</code> to deals with rejected error cases, which actually behaves the same as calling <code>Promise.prototype.then(undefined, onRejected)</code></p>
 <p>Here are some features of <strong>Promise</strong></p>
 <ul>
-<li>A Promise may be in one of 3 possible states: <strong>fulfilled</strong>, <strong>rejected</strong>, or <strong>pending</strong>, </li>
+<li>A Promise may be in one of 3 possible states: <strong>fulfilled</strong>, <strong>rejected</strong>, or <strong>pending</strong>,</li>
 <li>Promise doesn’t expose states outside, instead, you’re expected to treat the promise as a black box</li>
-<li>Because <strong>.then()</strong> will always return a new <strong>Promise</strong>, you can chain multiple async operations together using multiple <strong>.then()</strong> operations, passing the result of one into the next one as an input. </li>
-<li>Once a <strong>Promise</strong> is <strong>resolved</strong>, it becomes an immutable value, and it will trigger the callback function binding with <strong>.then()</strong>. Therefore, it’s safe to pass that result because of the fact that it cannot be modified. </li>
+<li>Because <strong>.then()</strong> will always return a new <strong>Promise</strong>, you can chain multiple async operations together using multiple <strong>.then()</strong> operations, passing the result of one into the next one as an input.</li>
+<li>Once a <strong>Promise</strong> is <strong>resolved</strong>, it becomes an immutable value, and it will trigger the callback function binding with <strong>.then()</strong>. Therefore, it’s safe to pass that result because of the fact that it cannot be modified.</li>
 <li>It will start doing whatever task you give it as soon as the promise constructor is initiated immediately.</li>
 </ul>
-<p>Why promise? As mentioned previously, if you have a series of asynchronous tasks where each step depends on the results of previous step, which often easily ends up with <strong>callback hell</strong>. If we use <strong>Promise</strong>, then we can synchronizing these asynchronous tasks, rather than writing nested callback functions. Even though this method does not remove the use of callbacks, it makes the chaining functions straightforward, making it much easier to read and write. </p>
+<p>Why promise? As mentioned previously, if you have a series of asynchronous tasks where each step depends on the results of previous step, which often easily ends up with <strong>callback hell</strong>. If we use <strong>Promise</strong>, then we can synchronizing these asynchronous tasks, rather than writing nested callback functions. Even though this method does not remove the use of callbacks, it makes the chaining functions straightforward, making it much easier to read and write.</p>
 <p>Another good reason to use <strong>Promise</strong> is that <strong>Promise</strong> can be see as a <strong>trustable</strong> and <strong>repeatable mechanism</strong> for encapsulating and composing <strong>future values</strong>, meanwhile, you don’t need to worry about the time aspect of it.</p>
-<p>If we refactor our callback hell codes above by using <strong>Promise</strong>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">readFile(fileName)</span><br><span class="line">  .then(<span class="function">(<span class="params">text</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> tokenize(text);</span><br><span class="line">    &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">tokens</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> parse(tokens);</span><br><span class="line">    &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">parseTree</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> optimize(parseTree);</span><br><span class="line">    &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">optimizedTree</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> evaluate(optimizedTree);</span><br><span class="line">    &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">output</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(output);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>If we refactor our callback hell codes above by using <strong>Promise</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs JavaScript">readFile(fileName)<br>  .then(<span class="hljs-function">(<span class="hljs-params">text</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> tokenize(text);<br>    &#125;)<br>  .then(<span class="hljs-function">(<span class="hljs-params">tokens</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> parse(tokens);<br>    &#125;)<br>  .then(<span class="hljs-function">(<span class="hljs-params">parseTree</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> optimize(parseTree);<br>    &#125;)<br>  .then(<span class="hljs-function">(<span class="hljs-params">optimizedTree</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> evaluate(optimizedTree);<br>    &#125;)<br>  .then(<span class="hljs-function">(<span class="hljs-params">output</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(output);<br>    &#125;);<br></code></pre></td></tr></table></figure>
 <p>Doesn’t it look much better to you as an sequence?</p>
-<h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><p>However, we still have some drawbacks to use callbacks:</p>
+<h2><a href="#generator" class="header-anchor">★ </a><span id="generator">Generator</span></h2>
+<p>However, we still have some drawbacks to use callbacks:</p>
 <ul>
 <li>Async Callback doesn’t fit how our brain plans out steps of a task.</li>
 <li>Callback is not trustable or composable because of inversion of control.</li>
 </ul>
-<p>If we want to express async flow in a sequential, synchronous-looking style, we need some other ways. That’ where<br><strong>Generator</strong> comes in.<br><strong>Generator</strong> functions are JavaScript functions that may yield multiple values before finally returning.<br>But we won’t discuss much about <strong>Generator</strong> here, because we have a more modern solution: Async/Await.</p>
-<h2 id="Async-Await"><a href="#Async-Await" class="headerlink" title="Async/Await"></a>Async/Await</h2><p><strong>Async/Await</strong> is basically a <strong>Syntactic Sugar</strong> for <strong>Generator</strong> function<br>If we refactor our html processing codes above to Async/Await, then it turns out like this:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> asyncProcessor = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">fileName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> text = <span class="keyword">await</span> readFile(fileName);</span><br><span class="line">  <span class="keyword">const</span> tokens = <span class="keyword">await</span> tokenize(text);</span><br><span class="line">  <span class="keyword">const</span> parseTree = <span class="keyword">await</span> parse(tokens);</span><br><span class="line">  <span class="keyword">const</span> optimzedTree = <span class="keyword">await</span> optimize(parseTree);</span><br><span class="line">  <span class="keyword">const</span> output = <span class="keyword">await</span> evaluate(optimzedTree);</span><br><span class="line">  <span class="built_in">console</span>.log(output);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>You can see <strong>async function</strong> as a <strong>Promise</strong> with multiple asynchronous operations, and see <strong>await</strong> as a syntactic<br>sugar for <strong>.then()</strong>. In fact, you can also chain <strong>.then()</strong> right from the end of <strong>async</strong> function:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">asyncProcessor(<span class="string">'./filename.html'</span>).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>If we want to express async flow in a sequential, synchronous-looking style, we need some other ways. That’ where <strong>Generator</strong> comes in.<br>
+<strong>Generator</strong> functions are JavaScript functions that may yield multiple values before finally returning.<br>
+But we won’t discuss much about <strong>Generator</strong> here, because we have a more modern solution: Async/Await.</p>
+<h2><a href="#async-await" class="header-anchor">★ </a><span id="async-await">Async/Await</span></h2>
+<p><strong>Async/Await</strong> is basically a <strong>Syntactic Sugar</strong> for <strong>Generator</strong> function<br>
+If we refactor our html processing codes above to Async/Await, then it turns out like this:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">const</span> asyncProcessor = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fileName</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> readFile(fileName);<br>  <span class="hljs-keyword">const</span> tokens = <span class="hljs-keyword">await</span> tokenize(text);<br>  <span class="hljs-keyword">const</span> parseTree = <span class="hljs-keyword">await</span> parse(tokens);<br>  <span class="hljs-keyword">const</span> optimzedTree = <span class="hljs-keyword">await</span> optimize(parseTree);<br>  <span class="hljs-keyword">const</span> output = <span class="hljs-keyword">await</span> evaluate(optimzedTree);<br>  <span class="hljs-built_in">console</span>.log(output);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>You can see <strong>async function</strong> as a <strong>Promise</strong> with multiple asynchronous operations, and see <strong>await</strong> as a syntactic<br>
+sugar for <strong>.then()</strong>. In fact, you can also chain <strong>.then()</strong> right from the end of <strong>async</strong> function:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs JavaScript">asyncProcessor(<span class="hljs-string">&#x27;./filename.html&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(result)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>And sometimes it’s also a good practice to put a data process function into the Promise.then after it resolved and you can get the data from the asynchronous data query, otherwise, sometimes the web page will render the UI components or execute other UI actions before getting the real data that should be rendered because of the non-block event driven programming model in JavaScript.</p>
 <p>So now you can write async codes as if it were synchronous, but without blocking the main thread.</p>
-<h2 id="Single-threaded-Brain"><a href="#Single-threaded-Brain" class="headerlink" title="Single threaded Brain"></a>Single threaded Brain</h2><p>So why the async codes evolve this way? Why we have figured out all kinds of solutions to write asynchronous codes, but in the end it seems that we come back to the original style like a roundabout.</p>
-<p>I think a good answer to this is that:<br>Humans are not as good at <strong>multitasking</strong> as we think we are. That’s may just not really how our brains appear to be set up. We’d like to plan things in a synchronous order, rather then let the tasks to hang randomly and pop up like async events.</p>
-<p>Yeah, yeah, you may say that “I can talk to a friend on the phone and finish my typing simultaneously.” At the surface level, it seems like that your brain is functioning parallel. But I think what you’re actually most likely doing is acting as a fast context switcher, switching back and forth to these little chunks of information, and it costs a hell lot of mind resources and energies. Because the information you are processing is pretty <strong>shallow</strong>, and the brain resources are arranged to different tasks <strong>unconsciously</strong>, therefore it’s hard for you to think deeply about the logic of your tasks, you are actually fake multitasking.<br>Of course, there is nothing wrong to process information subconsciously, these are all vital tasks to our daily life. But if you want to solve a really hard problem, or try to read a book, then maybe it’s better to concentrate on the task at hand and avoid interruptions. The harder task you get, more energy and self-control you need to finish your task.<br>If you have ever read about the concept about <strong>System 1</strong> and <strong>System 2</strong> which comes from the Book:<strong>Thinking Fast and Slow</strong>, you will get the idea.</p>
-<p>And That’s why I think sometimes we should really be careful when we obsess about checking social media and feeds these days, it turns out that we may not get a deep understanding by switching between these shallow information chunks. Even worse, we may lose the ability to focus on reading a good book, and just let these noises occupy our time and grab our attention.</p>
+<h2><a href="#single-threaded-brain" class="header-anchor">★ </a><span id="single-threaded-brain">Single threaded Brain</span></h2>
+<p>So why the async codes evolve this way? Why we have figured out all kinds of solutions to write asynchronous codes, but in the end it seems that we come back to the original style like a roundabout.</p>
+<p>I think a good answer to this is that:<br>
+Humans are not as good at <strong>multitasking</strong> as we think we are. That’s may just not really how our brains appear to be set up. We’d like to plan things in a synchronous order, rather then let the tasks to hang randomly and pop up like async events.</p>
+<p>Yeah, yeah, you may say that “I can talk to a friend on the phone and finish my typing simultaneously.” At the surface level, it seems like that your brain is functioning parallel. But I think what you’re actually most likely doing is acting as a fast context switcher, switching back and forth to these little chunks of information, and it costs a hell lot of mind resources and energies. Because the information you are processing is pretty <strong>shallow</strong>, and the brain resources are arranged to different tasks <strong>unconsciously</strong>, therefore it’s hard for you to think deeply about the logic of your tasks, you are actually fake multitasking.<br>
+Of course, there is nothing wrong to process information subconsciously, these are all vital tasks to our daily life. But if you want to solve a really hard problem, or try to read a book, then maybe it’s better to concentrate on the task at hand and avoid interruptions. The harder task you get, more energy and self-control you need to finish your task.<br>
+If you have ever read about the concept about <strong>System 1</strong> and <strong>System 2</strong> which comes from the Book:<strong>Thinking Fast and Slow</strong>, you will get the idea.</p>
+<p>And That’s why I think sometimes we should be really careful when we obsess about checking social media and feeds these days, it turns out that we may not get a deep understanding by switching between these shallow information chunks. Even worse, we may lose the ability to focus on reading a good book, and just let these noises occupy our time and grab our attention.</p>
 
       
+    </div>
+    <div class="post-bottom" itemprop="articleBody">
     
       <br>
       
@@ -167,7 +204,7 @@ ga('send', 'pageview');
 
 <span style="font-size: 1.0em; padding:0em 1em 0.5em 1em; margin: 0 auto;">
 
-<a data-url="https://CaeChao.github.io/2019/05/24/asynchronous-JavaScript-programming[2]/" data-id="ck0mbmtyh0009yfoi7f7i644n" class="article-share-link">Share</a>
+<a data-url="https://caechao.github.io/2019/05/24/asynchronous-JavaScript-programming[2]/" data-id="ckjh0wyc1000bu7kv59wf6h3a" class="article-share-link">Share</a>
 <br>
 
 </span>
@@ -187,33 +224,13 @@ ga('send', 'pageview');
         -->
         
   <div class="article-tag">
-    <a class="article-tag-link" href="/tags/IT/">IT</a><span></span><a class="article-tag-link" href="/tags/JavaScript/">JavaScript</a><span></span><a class="article-tag-link" href="/tags/Programming/">Programming</a>
+    <a class="article-tag-none-link" href="/tags/Programming/" rel="tag">Programming</a><span></span><a class="article-tag-none-link" href="/tags/Programming-JavaScript/" rel="tag">Programming.JavaScript</a>
   </div>
 
 
       </footer>
     
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/06/04/songs-for-today-u2[1]/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-title"><span>&lt;</span>&nbsp;
-        
-          Songs for today[1]:Sunday Bloody Sunday - U2
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/05/17/asynchronous-JavaScript-programming[1]/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Asynchronous JavaScript Programming[1]&nbsp;<span>&gt;</span></div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
 </section>
@@ -225,7 +242,7 @@ ga('send', 'pageview');
         
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2019 CaeChao&nbsp;
+            &copy; 2021 CaeChao&nbsp;
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
         </div>
     </div>
@@ -237,12 +254,20 @@ ga('send', 'pageview');
 <script src="/js/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
+
 <script src="/js/quotesMachine.js"></script>
+
 
   </div>
 </body>

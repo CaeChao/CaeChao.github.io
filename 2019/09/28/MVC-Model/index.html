@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Object Oriented Programming - CaeChao&#39;s Blog</title>
+  <title>浅聊MVC模式 - CaeChao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="★ Object-Oriented Programming Object-Oriented Programming A.K.A : OOP is a way(paradigm) of building computer programs so that they are both intuitive to humans(problem side) and computers(solution si">
+  <meta name="description" content="MVC即&quot;Model&quot;模型、&quot;view&quot;视图、&quot;controller&quot;控制的缩写。 这个模式将应用程序的结构分为三层： ★ Model Model是整个应用程序的核心：也是处理操作数据和执行核心功能的主要部分 ★ View View是呈现用户输出结果的最外层，它作为视图层给用户提供操作与互动 ★ Controller Controller">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Object Oriented Programming">
-<meta property="og:url" content="https://caechao.github.io/2019/05/03/object-oriented-programming/index.html">
+<meta property="og:title" content="浅聊MVC模式">
+<meta property="og:url" content="https://caechao.github.io/2019/09/28/MVC-Model/index.html">
 <meta property="og:site_name" content="CaeChao&#39;s Blog">
-<meta property="og:description" content="★ Object-Oriented Programming Object-Oriented Programming A.K.A : OOP is a way(paradigm) of building computer programs so that they are both intuitive to humans(problem side) and computers(solution si">
+<meta property="og:description" content="MVC即&quot;Model&quot;模型、&quot;view&quot;视图、&quot;controller&quot;控制的缩写。 这个模式将应用程序的结构分为三层： ★ Model Model是整个应用程序的核心：也是处理操作数据和执行核心功能的主要部分 ★ View View是呈现用户输出结果的最外层，它作为视图层给用户提供操作与互动 ★ Controller Controller">
 <meta property="og:locale">
-<meta property="article:published_time" content="2019-05-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-27T08:10:21.838Z">
+<meta property="article:published_time" content="2019-09-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-04T10:17:20.147Z">
 <meta property="article:author" content="CaeChao">
 <meta property="article:tag" content="Programming">
 <meta name="twitter:card" content="summary">
@@ -90,7 +90,7 @@ ga('send', 'pageview');
 </header>
 
     <br>
-    <section id="main" class="outer"><article id="post-object-oriented-programming" class="article article-type-post" itemscope itemprop="blogPost">
+    <section id="main" class="outer"><article id="post-MVC-Model" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -98,9 +98,9 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      Object Oriented Programming
+      浅聊MVC模式
     </h1>
-      <p class=article-detail-date-index><small>&nbsp; 2019-05-03</small></p>
+      <p class=article-detail-date-index><small>&nbsp; 2019-09-28</small></p>
   
 
 
@@ -110,7 +110,7 @@ ga('send', 'pageview');
     
     <div class="article-meta">
       <!-- <span class="article-date">
-  <time datetime="2019-05-02T16:00:00.000Z" itemprop="datePublished">2019-05-03</time>
+  <time datetime="2019-09-27T16:00:00.000Z" itemprop="datePublished">2019-09-28</time>
 </span>
 -->
       <!-- 
@@ -127,38 +127,43 @@ ga('send', 'pageview');
     -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><a href="#object-oriented-programming" class="header-anchor">★ </a><span id="object-oriented-programming">Object-Oriented Programming</span></h2>
-<p>Object-Oriented Programming A.K.A : OOP<br>
-is a way(paradigm) of building computer programs so that they are both intuitive to humans(problem side) and computers(solution side).</p>
-<p>Objects have <strong>attributes</strong> and <strong>methods</strong>.</p>
-<p>Attributes are basically the characteristics or properties, or states about the object. Like a Person has a name, gender and age.</p>
-<p>Methods are actions or functionalities that can be performed or executed on objects from somewhere else in the programs. Like a Light can be On and Off.</p>
-<p>If you build your programs using OOP, you basically build a collection of objects that can interact with each other by sending messages.</p>
-<h2><a href="#features" class="header-anchor">★ </a><span id="features">Features</span></h2>
+        <p>MVC即&quot;Model&quot;模型、&quot;view&quot;视图、&quot;controller&quot;控制的缩写。</p>
+<p>这个模式将应用程序的结构分为三层：</p>
+<h2><a href="#model" class="header-anchor">★ </a><span id="model">Model</span></h2>
+<p>Model是整个应用程序的核心：也是处理操作数据和执行核心功能的主要部分</p>
+<h2><a href="#view" class="header-anchor">★ </a><span id="view">View</span></h2>
+<p>View是呈现用户输出结果的最外层，它作为视图层给用户提供操作与互动</p>
+<h2><a href="#controller" class="header-anchor">★ </a><span id="controller">Controller</span></h2>
+<p>Controller就是中间的控制层，通过连接View视图层与Model层，将视图层的操作指令发送至Model层从而对数据进行操作而产生相对应的结果，然后返回View层重新呈现。</p>
+<h2><a href="#he-xin-gai-nian" class="header-anchor">★ </a><span id="he-xin-gai-nian">核心概念</span></h2>
+<p>MVC模式的核心在于:</p>
+<blockquote>
+<p>Model必须不依赖于Controller层和View层，换而言之，Model, View, Controller必须相互独立</p>
+</blockquote>
+<p>其关键的思想在于能创建<strong>模块化</strong>的代码从而能提高代码复用而不需要进行改动</p>
+<h2><a href="#example" class="header-anchor">★ </a><span id="example">Example</span></h2>
+<ol>
+<li>比如说你和朋友约在一个餐厅内享受晚餐:</li>
+</ol>
 <ul>
-<li>
-<p><strong>Classes and Objects</strong><br>
-Class is an extensible template or blueprint for creating Objects. The use of classes to create multiple objects that have the same attributes and methods is the symbol of most of Object Oriented languages. Programmers can define a class to fit the problem they want to solve.</p>
-</li>
-<li>
-<p><strong>Abstraction</strong><br>
-is a way of controlling complexity by presenting the model of the problems and hiding details and can give you the ability to create new symbols so that you can discuss problems at a higher order.<br>
-The complexity of the problems you’re able to solve is directly related to the kind and quality of abstraction.<br>
-Abstraction can also be found everywhere in the real world, every time you drive a car or plugin your phone into the socket, you are using an abstracted interface(steering wheel, socket) to certain services(car differential, electric power). Numbers and letters are also examples of abstraction that used to express ideas and help reduce cognitive load.</p>
-</li>
-<li>
-<p><strong>Encapsulation</strong><br>
-is basically wrapping some related things into a package. In OOP, we package access control between the data within an object and functions that manipulate those data in Class, and that keeps both safe from outside interference and misuse. But Class is not the only way to implement Encapsulation, for example, you can use package(Java), module(Python, Node.js), namespace(C++), even file to implement Encapsulation.</p>
-</li>
-<li>
-<p><strong>Inheritance</strong><br>
-is a way to create something(child) from something else(parent), and you will get the attributes or properties from that thing(parent). For example, if you have an object called Animal, with the ability to move() and eat(), then if you implement a dog that inherits from Animal, then the dog would start with the ability to move() and eat() as well.</p>
-</li>
-<li>
-<p><strong>Polymorphism</strong><br>
-means implementing multiple methods with the same name but different functionality at multiple levels of the inheritance chain. Overriding polymorphism happens at runtime(dynamic) which means within an inheritance hierarchy, a subclass can override a method of it’s superclass, and overloading polymorphism happens at compile time(static) which allows you to implement multiple methods within the same class that use the same name but a different set of parameters.</p>
-</li>
+<li>你可能会在餐桌上看菜单并点菜（view视图层)</li>
+<li>这时服务员(controller)并不知道你是谁，会点些啥，他（她）只负责帮你写下你的订单细节。</li>
+<li>但服务员并不帮你烹饪，他只是帮你将订单传递给厨师(Model)</li>
+<li>然后厨师(Model)会从冰箱里拿出相应的食材(Data)帮你进行烹饪。</li>
+<li>最后美味的食物终于完成，厨师将完成的食物交给服务员，这时服务员知道你点了些啥，然后知道应该用怎样服务方式来给你上菜。</li>
 </ul>
+<ol start="2">
+<li>现代汽车的架构其实也可以看成是MVC模型:</li>
+</ol>
+<ul>
+<li>View = User Interface: (排档、刹车、油门、仪表盘、方向盘)</li>
+<li>Controller = Mechanism: （变速转动装置，万向节）</li>
+<li>Model = Engine(引擎)</li>
+<li>Storage、Data = 油箱与汽油</li>
+</ul>
+<p>这样的汽车结构就显得很清楚，你可以分别对不同的层进行各式各样的折腾和改造以及优化：比如对Engine部分进行改造、换更好的燃油让它马力更足，而不更换汽车的操作部分和外壳。</p>
+<h2><a href="#summary" class="header-anchor">★ </a><span id="summary">Summary</span></h2>
+<p>MVC模式的目的在于最大化的创建可复用代码, 它通过抽象(abstract)出Model, View, Controller三个独立的模块，这样的设计可以让Application应用允许扩展和升级而对数据模型有着最小的改动</p>
 
       
     </div>
@@ -170,7 +175,7 @@ means implementing multiple methods with the same name but different functionali
 
 <span style="font-size: 1.0em; padding:0em 1em 0.5em 1em; margin: 0 auto;">
 
-<a data-url="https://caechao.github.io/2019/05/03/object-oriented-programming/" data-id="ckjh0wyc2000cu7kv883l702z" class="article-share-link">Share</a>
+<a data-url="https://caechao.github.io/2019/09/28/MVC-Model/" data-id="ckjh0wybq0001u7kvaenlhkif" class="article-share-link">Share</a>
 <br>
 
 </span>

@@ -26,6 +26,7 @@ var quotes = {
 		'授人以鱼不如授人以渔!\t授人以鱼只救一时之急, 授人以渔则可解一生之需!',
 		'The world ain\'t all sunshine and rainbows. It\'s a very mean and nasty place and I don\'t care how tough you are it will beat you to your knees and keep you there permanently if you let it. You, me, or nobody is gonna hit as hard as life. But it ain\'t about how hard you hit. It\'s about how hard you can get hit and keep moving forward. How much you can take and keep moving forward. That\'s how winning is done! \t@Rocky Balboa\t',
 		'A man chooses, a slave obeys.',
+		'生命总会找到属于自己的出口',
 	],
 	arrEconomy: [
 		'花自己的钱 办自己的事 -- 既讲节约 又讲效果\t花自己的钱 办别人的事 -- 只讲节约 不讲效果\t花别人的钱 办自己的事 -- 不讲节约 只讲效果\t花别人的钱 办别人的事 -- 不讲节约 不讲效果\t@米尔顿.弗里德曼 (诺贝尔经济学奖得主)',

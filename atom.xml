@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>CaeChao&#39;s Blog</title>
+  <title>姬凌昭的Blog</title>
   
   
   <link href="https://caechao.github.io/atom.xml" rel="self"/>
@@ -196,6 +196,31 @@
     
     
     <category term="Music" scheme="https://caechao.github.io/tags/Music/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Enlightenment</title>
+    <link href="https://caechao.github.io/2015/09/08/2015-09-08/"/>
+    <id>https://caechao.github.io/2015/09/08/2015-09-08/</id>
+    <published>2015-09-07T16:00:00.000Z</published>
+    <updated>2021-03-25T14:55:13.842Z</updated>
+    
+    <content type="html"><![CDATA[<p>Growing up, I slowly had this process of realizing that all the things around me, that people have told me were just the natural way things were, the way things always would be. They weren’t nature way at all! They were things that could be and should be changed.This cognition kind of led me down the path of questioning things.I started to question the school I was in, I questioned the education I was received, I questioned the business that the educational system was training people for, I questioned the government in this country which established this whole absurd structure, and once I questioned that, there was really kind of no going back.</p>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="Raw thoughts" scheme="https://caechao.github.io/tags/Raw-thoughts/"/>
     
   </entry>
   
